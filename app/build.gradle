@@ -77,6 +77,9 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.2"
     implementation "io.insert-koin:koin-android-ext:3.0.2"
 
+    // Google Maps SDK
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
     // Tests
     testImplementation "junit:junit:4.13.2"
     testImplementation "androidx.arch.core:core-testing:2.1.0"

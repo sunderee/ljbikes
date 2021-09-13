@@ -9,5 +9,11 @@
         <item name="colorOnSecondary">@color/colorLight</item>
 
         <item name="android:statusBarColor" tools:targetApi="l">@color/colorTransparent</item>
+
+        <!-- Make the activity fullscreen -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 </resources>
