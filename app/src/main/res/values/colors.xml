@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorProduct">#026C7C</color>
+    <color name="colorProductSecondary">#055864</color>
+    <color name="colorLight">#E8E9EB</color>
+    <color name="colorTransparent">#00FFFFFF</color>
+</resources>
