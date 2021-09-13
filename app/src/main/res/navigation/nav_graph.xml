@@ -15,5 +15,9 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.peteralexbizjak.ljbikes.ui.MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <argument
+            android:name="stations"
+            app:argType="com.peteralexbizjak.ljbikes.api.models.stations.StationModel[]" />
+    </fragment>
 </navigation>

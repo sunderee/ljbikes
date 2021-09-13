@@ -15,7 +15,7 @@ internal class LoadingFragmentViewModel(
     private val tokenRepository: ITokenRepository,
     private val stationsRepository: IStationsRepository
 ) : ViewModel() {
-    private val stationsObserver by lazy { MutableLiveData<ApiResponseModel<List<StationModel>>>() }
+    val stationsObserver by lazy { MutableLiveData<ApiResponseModel<List<StationModel>>>() }
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()

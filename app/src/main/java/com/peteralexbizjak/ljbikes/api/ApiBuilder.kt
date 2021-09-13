@@ -1,12 +1,22 @@
 package com.peteralexbizjak.ljbikes.api
 
-import com.peteralexbizjak.ljbikes.BuildConfig
 import kotlinx.serialization.ExperimentalSerializationApi
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
+private val loggingInterceptor = OkHttpClient.Builder()
+    .addInterceptor(HttpLoggingInterceptor().apply {
+        setLevel(HttpLoggingInterceptor.Level.BASIC)
+        redactHeader("Authorization")
+        redactHeader("Cookie")
+    })
+    .build()
+
 @ExperimentalSerializationApi
-internal fun buildRetrofit(): Retrofit = Retrofit.Builder()
-    .baseUrl(BuildConfig.BASE_URL)
+internal fun buildRetrofit(baseURL: String): Retrofit = Retrofit.Builder()
+    .baseUrl(baseURL)
+    .client(loggingInterceptor)
     .addConverterFactory(JsonConverterFactory.create())
     .build()
 

@@ -1,10 +1,13 @@
 package com.peteralexbizjak.ljbikes.api.models.stations
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
-internal data class StationModel(
+data class StationModel(
     @SerialName("number")
     val stationID: Int,
 
@@ -30,5 +33,5 @@ internal data class StationModel(
     val stationStatus: String,
 
     @SerialName("last_update")
-    val stationDataLastUpdateUnix: Int
-)
+    val stationDataLastUpdateUnix: Long
+) : Parcelable
