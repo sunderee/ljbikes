@@ -24,13 +24,6 @@ internal class MainFragment : Fragment() {
 
     private lateinit var mapFragment: SupportMapFragment
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mapFragment =
-            parentFragmentManager.findFragmentById(R.id.fragmentMainMaps) as SupportMapFragment
-        mapFragment.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +35,8 @@ internal class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mapFragment = childFragmentManager.findFragmentById(R.id.fragmentMainMaps) as SupportMapFragment
+        mapFragment.onCreate(savedInstanceState)
         mapFragment.getMapAsync {
             it.moveToCenterOfLjubljana()
             addStationMarkers(it)
