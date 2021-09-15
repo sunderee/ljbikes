@@ -18,7 +18,7 @@ internal class StationRenderer(
     private val stationMarker by lazy { context.bitmapDescriptorFromVector(R.drawable.ic_pin) }
 
     override fun onBeforeClusterItemRendered(item: StationItem, markerOptions: MarkerOptions) {
-        markerOptions.icon(stationMarker).title(item.title).position(item.position)
+        markerOptions.icon(stationMarker).position(item.position)
     }
 
     override fun onClusterItemRendered(clusterItem: StationItem, marker: Marker) {

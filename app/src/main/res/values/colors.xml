@@ -3,5 +3,6 @@
     <color name="colorProduct">#026C7C</color>
     <color name="colorProductSecondary">#055864</color>
     <color name="colorLight">#E8E9EB</color>
+    <color name="colorDark">#121212</color>
     <color name="colorTransparent">#00FFFFFF</color>
 </resources>

@@ -2,4 +2,5 @@
     <string name="app_name">LJBikes</string>
     <string name="loading">Loading content, please wait</string>
     <string name="station_info">Station info</string>
+    <string name="location_pin_image">Location pin image</string>
 </resources>
