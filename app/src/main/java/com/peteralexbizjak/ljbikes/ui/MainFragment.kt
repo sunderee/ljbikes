@@ -12,9 +12,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.clustering.ClusterManager
 import com.peteralexbizjak.ljbikes.R
 import com.peteralexbizjak.ljbikes.databinding.FragmentMainBinding
+import com.peteralexbizjak.ljbikes.ui.maps.StationItem
+import com.peteralexbizjak.ljbikes.ui.maps.StationRenderer
 
 internal class MainFragment : Fragment() {
     private var bindingInstance: FragmentMainBinding? = null
@@ -35,7 +37,8 @@ internal class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mapFragment = childFragmentManager.findFragmentById(R.id.fragmentMainMaps) as SupportMapFragment
+        mapFragment =
+            childFragmentManager.findFragmentById(R.id.fragmentMainMaps) as SupportMapFragment
         mapFragment.onCreate(savedInstanceState)
         mapFragment.getMapAsync {
             it.moveToCenterOfLjubljana()
@@ -65,19 +68,18 @@ internal class MainFragment : Fragment() {
     }
 
     private fun addStationMarkers(map: GoogleMap) {
-        navigationArguments.stations.forEach {
-            map.addMarker(
-                MarkerOptions()
-                    .title(it.stationName)
-                    .position(
-                        LatLng(
-                            it.geographicLocation.latitude,
-                            it.geographicLocation.longitude
-                        )
-                    )
-                    .flat(true)
-                    .draggable(false)
+        val manager = ClusterManager<StationItem>(context, map)
+        manager.renderer = context?.let { StationRenderer(it, map, manager) }
+
+        manager.addItems(navigationArguments.stations.map {
+            StationItem(
+                it.stationID,
+                it.stationName,
+                it.stationAddress,
+                LatLng(it.geographicLocation.latitude, it.geographicLocation.longitude)
             )
-        }
+        })
+        manager.cluster()
+        map.setOnCameraIdleListener { manager.onCameraIdle() }
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="loading">Loading content, please wait</string>
+    <string name="station_info">Station info</string>
 </resources>

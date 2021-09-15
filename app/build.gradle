@@ -80,6 +80,7 @@ dependencies {
 
     // Google Maps SDK
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.5'
 
     // Tests
     testImplementation "junit:junit:4.13.2"
