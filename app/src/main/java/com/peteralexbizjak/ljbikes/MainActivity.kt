@@ -3,6 +3,7 @@ package com.peteralexbizjak.ljbikes
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.peteralexbizjak.ljbikes.di.loadingFragmentModule
+import com.peteralexbizjak.ljbikes.di.stationFragmentModule
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@MainActivity.application)
-            modules(loadingFragmentModule)
+            modules(loadingFragmentModule, stationFragmentModule)
         }
         setContentView(R.layout.activity_main)
     }

@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.peteralexbizjak.ljbikes.api.models.ApiResponseModel
 import com.peteralexbizjak.ljbikes.databinding.FragmentStationBinding
+import com.peteralexbizjak.ljbikes.ui.adapters.StationFragmentAdapter
 import com.peteralexbizjak.ljbikes.ui.viewmodels.StationFragmentViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +38,7 @@ internal class StationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialView()
         binding.fragmentStationToolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.apply {
             stationInfoTitle = "${navArguments.stationName} - No. ${navArguments.stationID}"
@@ -42,10 +47,51 @@ internal class StationFragment : Fragment() {
             availableParking =
                 (navArguments.totalBikeStands - navArguments.availableBikes).toString()
         }
+
+        stationFragmentViewModel.bikesObserver.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponseModel.Success -> {
+                    showRecyclerView()
+                    binding.fragmentStationRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(context)
+                        adapter = StationFragmentAdapter(it.value).also { adapter ->
+                            adapter.notifyItemRangeChanged(
+                                0,
+                                it.value.size
+                            )
+                        }
+                    }
+                }
+                is ApiResponseModel.Failure -> {
+                    Snackbar.make(
+                        binding.root,
+                        it.throwable?.localizedMessage ?: "Fatal application error",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+                is ApiResponseModel.Loading -> {
+                    Snackbar.make(
+                        binding.root,
+                        "Loading...",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         bindingInstance = null
+    }
+
+    private fun initialView() {
+        binding.fragmentStationProgressBar.visibility = View.VISIBLE
+        binding.fragmentStationRecyclerView.visibility = View.GONE
+    }
+
+    private fun showRecyclerView() {
+        binding.fragmentStationProgressBar.visibility = View.GONE
+        binding.fragmentStationRecyclerView.visibility = View.VISIBLE
     }
 }

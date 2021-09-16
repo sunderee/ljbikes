@@ -10,11 +10,11 @@
 
         <variable
             name="bikeNumber"
-            type="Integer" />
+            type="String" />
 
         <variable
             name="ratingsNumber"
-            type="Integer" />
+            type="String" />
 
         <variable
             name="ratingsDate"
@@ -35,13 +35,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:contentDescription="@string/shield_icon_description"
                 android:src="@drawable/ic_shield" />
 
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Headline6"
+                style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -55,7 +55,7 @@
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:text="@{bikeNumber, default=666}"
             android:textColor="@color/colorDark"
             app:drawableTint="@color/colorDark"

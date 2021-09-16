@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 internal class StationFragmentViewModel(
     private val repository: IBikesRepository
 ) : ViewModel() {
-    private val bikesObserver by lazy { MutableLiveData<ApiResponseModel<List<BikeModel>>>() }
+    val bikesObserver by lazy { MutableLiveData<ApiResponseModel<List<BikeModel>>>() }
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
