@@ -13,8 +13,9 @@ import com.peteralexbizjak.ljbikes.utils.bitmapDescriptorFromVector
 internal class StationRenderer(
     private val context: Context,
     map: GoogleMap,
-    clusterManager: ClusterManager<StationItem>
-) : DefaultClusterRenderer<StationItem>(context, map, clusterManager) {
+    clusterManager: ClusterManager<StationItem>,
+
+    ) : DefaultClusterRenderer<StationItem>(context, map, clusterManager) {
     private val stationMarker by lazy { context.bitmapDescriptorFromVector(R.drawable.ic_pin) }
 
     override fun onBeforeClusterItemRendered(item: StationItem, markerOptions: MarkerOptions) {

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,15 +15,15 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterManager
 import com.peteralexbizjak.ljbikes.R
+import com.peteralexbizjak.ljbikes.api.models.stations.StationModel
 import com.peteralexbizjak.ljbikes.databinding.FragmentMainBinding
-import com.peteralexbizjak.ljbikes.ui.maps.StationItem
 import com.peteralexbizjak.ljbikes.ui.maps.StationRenderer
 
 internal class MainFragment : Fragment() {
     private var bindingInstance: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = bindingInstance!!
 
-    private val navigationArguments by navArgs<MainFragmentArgs>()
+    private val navArguments by navArgs<MainFragmentArgs>()
 
     private lateinit var mapFragment: SupportMapFragment
 
@@ -68,18 +69,23 @@ internal class MainFragment : Fragment() {
     }
 
     private fun addStationMarkers(map: GoogleMap) {
-        val manager = ClusterManager<StationItem>(context, map)
+        val manager = ClusterManager<StationModel>(context, map)
         manager.renderer = context?.let { StationRenderer(it, map, manager) }
 
-        manager.addItems(navigationArguments.stations.map {
-            StationItem(
-                it.stationID,
-                it.stationName,
-                it.stationAddress,
-                LatLng(it.geographicLocation.latitude, it.geographicLocation.longitude)
-            )
-        })
+        manager.addItems(navArguments.stations.asIterable() as MutableCollection<StationModel>?)
         manager.cluster()
+        manager.setOnClusterItemClickListener {
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToStationFragment(
+                    stationID = it.stationID,
+                    stationName = it.stationName,
+                    stationAddress = it.stationAddress,
+                    availableBikes = it.availableBikes,
+                    totalBikeStands = it.availableBikeStands
+                )
+            )
+            false
+        }
         map.setOnCameraIdleListener { manager.onCameraIdle() }
     }
 }

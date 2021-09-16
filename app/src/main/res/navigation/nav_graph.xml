@@ -19,5 +19,28 @@
         <argument
             android:name="stations"
             app:argType="com.peteralexbizjak.ljbikes.api.models.stations.StationModel[]" />
+        <action
+            android:id="@+id/action_mainFragment_to_stationFragment"
+            app:destination="@id/stationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stationFragment"
+        android:name="com.peteralexbizjak.ljbikes.ui.StationFragment"
+        tools:layout="@layout/fragment_station">
+        <argument
+            android:name="stationID"
+            app:argType="integer" />
+        <argument
+            android:name="stationName"
+            app:argType="string" />
+        <argument
+            android:name="stationAddress"
+            app:argType="string" />
+        <argument
+            android:name="availableBikes"
+            app:argType="integer" />
+        <argument
+            android:name="totalBikeStands"
+            app:argType="integer" />
     </fragment>
 </navigation>

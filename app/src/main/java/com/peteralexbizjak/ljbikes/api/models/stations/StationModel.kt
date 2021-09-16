@@ -1,6 +1,8 @@
 package com.peteralexbizjak.ljbikes.api.models.stations
 
 import android.os.Parcelable
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.clustering.ClusterItem
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -34,4 +36,13 @@ data class StationModel(
 
     @SerialName("last_update")
     val stationDataLastUpdateUnix: Long
-) : Parcelable
+) : Parcelable, ClusterItem {
+    override fun getPosition(): LatLng = LatLng(
+        geographicLocation.latitude,
+        geographicLocation.longitude
+    )
+
+    override fun getTitle(): String = stationName
+
+    override fun getSnippet(): String = stationAddress
+}
