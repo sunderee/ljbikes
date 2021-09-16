@@ -8,12 +8,20 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.peteralexbizjak.ljbikes.databinding.FragmentStationBinding
+import com.peteralexbizjak.ljbikes.ui.viewmodels.StationFragmentViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class StationFragment : Fragment() {
     private var bindingInstance: FragmentStationBinding? = null
     private val binding: FragmentStationBinding get() = bindingInstance!!
 
     private val navArguments by navArgs<StationFragmentArgs>()
+    private val stationFragmentViewModel by viewModel<StationFragmentViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        stationFragmentViewModel.findBikesInformation(navArguments.stationID)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

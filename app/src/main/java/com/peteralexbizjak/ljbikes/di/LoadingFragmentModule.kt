@@ -1,5 +1,7 @@
 package com.peteralexbizjak.ljbikes.di
 
+import com.peteralexbizjak.ljbikes.BuildConfig
+import com.peteralexbizjak.ljbikes.api.buildRetrofit
 import com.peteralexbizjak.ljbikes.api.buildService
 import com.peteralexbizjak.ljbikes.api.repositories.IStationsRepository
 import com.peteralexbizjak.ljbikes.api.repositories.ITokenRepository
@@ -15,11 +17,11 @@ import org.koin.dsl.module
 
 @ExperimentalSerializationApi
 internal val loadingFragmentModule = module {
-    single { buildService(retrofitInstanceFR, TokenService::class.java) }
+    single { buildService(buildRetrofit(BuildConfig.BASE_URL_FR), TokenService::class.java) }
     single { getSharedPreferences(androidApplication = androidApplication()) }
     single<ITokenRepository> { TokenRepository(tokenService = get(), sharedPreferences = get()) }
 
-    single { buildService(retrofitInstance, StationsService::class.java) }
+    single { buildService(buildRetrofit(BuildConfig.BASE_URL), StationsService::class.java) }
     single<IStationsRepository> { StationsRepository(stationsService = get()) }
 
     viewModel { LoadingFragmentViewModel(tokenRepository = get(), stationsRepository = get()) }
