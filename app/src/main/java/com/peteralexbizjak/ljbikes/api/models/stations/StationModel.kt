@@ -25,9 +25,6 @@ data class StationModel(
     @SerialName("bike_stands")
     val totalStands: Int,
 
-    @SerialName("available_bike_stands")
-    val availableBikeStands: Int,
-
     @SerialName("available_bikes")
     val availableBikes: Int,
 

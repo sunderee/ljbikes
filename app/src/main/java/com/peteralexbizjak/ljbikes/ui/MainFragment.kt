@@ -94,7 +94,7 @@ internal class MainFragment : Fragment() {
                     stationName = it.stationName,
                     stationAddress = it.stationAddress,
                     availableBikes = it.availableBikes,
-                    totalBikeStands = it.availableBikeStands
+                    totalBikeStands = it.totalStands
                 )
             )
             false

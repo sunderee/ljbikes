@@ -14,11 +14,11 @@
 
         <variable
             name="availableBikes"
-            type="Integer" />
+            type="String" />
 
         <variable
             name="availableParking"
-            type="Integer" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

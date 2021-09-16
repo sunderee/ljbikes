@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.peteralexbizjak.ljbikes.databinding.FragmentStationBinding
 
@@ -25,11 +26,13 @@ internal class StationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.fragmentStationToolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.apply {
             stationInfoTitle = "${navArguments.stationName} - No. ${navArguments.stationID}"
             stationAddress = navArguments.stationAddress
-            availableBikes = navArguments.availableBikes
-            availableParking = navArguments.totalBikeStands - navArguments.availableBikes
+            availableBikes = navArguments.availableBikes.toString()
+            availableParking =
+                (navArguments.totalBikeStands - navArguments.availableBikes).toString()
         }
     }
 
