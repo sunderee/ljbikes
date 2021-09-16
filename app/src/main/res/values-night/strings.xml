@@ -3,4 +3,6 @@
     <string name="loading">Loading content, please wait</string>
     <string name="station_info">Station info</string>
     <string name="location_pin_image">Location pin image</string>
+    <string name="shield_icon_description">Shield icon with stand number inside</string>
+    <string name="ratings">ratings</string>
 </resources>

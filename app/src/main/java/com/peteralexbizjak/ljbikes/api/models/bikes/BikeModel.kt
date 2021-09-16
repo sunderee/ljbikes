@@ -9,6 +9,9 @@ internal data class BikeModel(
     val bikeID: String,
 
     @SerialName("number")
+    val bikeNumber: Int,
+
+    @SerialName("standNumber")
     val standNumber: Int,
 
     @SerialName("rating")
