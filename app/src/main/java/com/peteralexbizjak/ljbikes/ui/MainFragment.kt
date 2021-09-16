@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -18,12 +19,14 @@ import com.peteralexbizjak.ljbikes.R
 import com.peteralexbizjak.ljbikes.api.models.stations.StationModel
 import com.peteralexbizjak.ljbikes.databinding.FragmentMainBinding
 import com.peteralexbizjak.ljbikes.ui.maps.StationRenderer
+import com.peteralexbizjak.ljbikes.ui.maps.StationRendererViewModel
 
 internal class MainFragment : Fragment() {
     private var bindingInstance: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = bindingInstance!!
 
     private val navArguments by navArgs<MainFragmentArgs>()
+    private val stationRendererViewModel by viewModels<StationRendererViewModel>()
 
     private lateinit var mapFragment: SupportMapFragment
 
@@ -44,7 +47,9 @@ internal class MainFragment : Fragment() {
         mapFragment.getMapAsync {
             it.moveToCenterOfLjubljana()
             addStationMarkers(it)
+            it.setOnCameraMoveListener { stationRendererViewModel.setNewZoomLevel(it.cameraPosition.zoom) }
         }
+
     }
 
     override fun onDestroyView() {
@@ -70,9 +75,17 @@ internal class MainFragment : Fragment() {
 
     private fun addStationMarkers(map: GoogleMap) {
         val manager = ClusterManager<StationModel>(context, map)
-        manager.renderer = context?.let { StationRenderer(it, map, manager) }
+        manager.renderer = context?.let {
+            StationRenderer(
+                it,
+                viewLifecycleOwner,
+                stationRendererViewModel,
+                map,
+                manager
+            )
+        }
 
-        manager.addItems(navArguments.stations.asIterable() as MutableCollection<StationModel>?)
+        manager.addItems(navArguments.stations.toList())
         manager.cluster()
         manager.setOnClusterItemClickListener {
             findNavController().navigate(
