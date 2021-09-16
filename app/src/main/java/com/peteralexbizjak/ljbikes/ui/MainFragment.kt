@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,6 +27,7 @@ internal class MainFragment : Fragment() {
     private val navArguments by navArgs<MainFragmentArgs>()
     private val stationRendererViewModel by viewModels<StationRendererViewModel>()
 
+    private lateinit var googleMap: GoogleMap
     private lateinit var mapFragment: SupportMapFragment
 
     override fun onCreateView(
@@ -45,6 +45,7 @@ internal class MainFragment : Fragment() {
             childFragmentManager.findFragmentById(R.id.fragmentMainMaps) as SupportMapFragment
         mapFragment.onCreate(savedInstanceState)
         mapFragment.getMapAsync {
+            googleMap = it
             it.moveToCenterOfLjubljana()
             addStationMarkers(it)
             it.setOnCameraMoveListener { stationRendererViewModel.setNewZoomLevel(it.cameraPosition.zoom) }
@@ -54,12 +55,9 @@ internal class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        mapFragment.onDestroy()
+        googleMap.clear()
         bindingInstance = null
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
     private fun GoogleMap.moveToCenterOfLjubljana() {
