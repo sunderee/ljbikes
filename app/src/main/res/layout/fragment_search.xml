@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/fragmentMainToolbar"
+        android:id="@+id/fragmentSearchToolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragmentMainToolbarLayout"
+            android:id="@+id/fragmentSearchToolbarLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,13 +28,12 @@
             android:transitionName="toolbar_layout"
             app:boxBackgroundMode="none"
             app:hintEnabled="false"
-            app:startIconDrawable="@drawable/ic_search">
+            app:startIconDrawable="@drawable/ic_back">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fragmentMainToolbarInput"
+                android:id="@+id/fragmentSearchToolbarInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:hint="@string/search_for_stations"
                 android:transitionName="toolbar_input" />
 
@@ -42,21 +41,13 @@
 
     </androidx.cardview.widget.CardView>
 
-    <FrameLayout
-        android:id="@+id/fragmentMainMapContainer"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragmentSearchRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <fragment
-            android:id="@+id/fragmentMainMaps"
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/fragmentSearchToolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
