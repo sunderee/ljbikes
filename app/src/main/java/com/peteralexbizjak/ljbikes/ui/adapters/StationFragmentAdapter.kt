@@ -9,8 +9,9 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 internal class StationFragmentAdapter(
-    private val bikesList: List<BikeModel>
-) : RecyclerView.Adapter<StationFragmentAdapter.ViewHolder>() {
+    private val bikesList: List<BikeModel>,
+
+    ) : RecyclerView.Adapter<StationFragmentAdapter.ViewHolder>() {
     inner class ViewHolder(
         private val binding: ItemBikeBinding
     ) : RecyclerView.ViewHolder(binding.root) {

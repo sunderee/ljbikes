@@ -2,11 +2,15 @@ package com.peteralexbizjak.ljbikes.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.peteralexbizjak.ljbikes.api.models.stations.StationModel
 import com.peteralexbizjak.ljbikes.databinding.ItemStationBinding
+import com.peteralexbizjak.ljbikes.ui.SearchFragmentDirections
 
-internal class SearchFragmentAdapter : RecyclerView.Adapter<SearchFragmentAdapter.ViewHolder>() {
+internal class SearchFragmentAdapter(
+    private val navigationController: NavController
+) : RecyclerView.Adapter<SearchFragmentAdapter.ViewHolder>() {
     private val stationsList = mutableListOf<StationModel>()
 
     inner class ViewHolder(
@@ -18,6 +22,17 @@ internal class SearchFragmentAdapter : RecyclerView.Adapter<SearchFragmentAdapte
                 stationAddress = model.stationAddress
                 availableBikes = model.availableBikes.toString()
                 availableParking = (model.totalStands - model.availableBikes).toString()
+            }
+            binding.root.setOnClickListener {
+                navigationController.navigate(
+                    SearchFragmentDirections.actionSearchFragmentToStationFragmentSecond(
+                        stationID = model.stationID,
+                        stationName = model.stationName,
+                        stationAddress = model.stationAddress,
+                        availableBikes = model.availableBikes,
+                        totalBikeStands = model.totalStands
+                    )
+                )
             }
         }
     }

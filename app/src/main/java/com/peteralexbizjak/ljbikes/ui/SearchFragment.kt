@@ -21,7 +21,7 @@ internal class SearchFragment : Fragment() {
     private val navArguments by navArgs<SearchFragmentArgs>()
     private val searchFragmentViewModel by viewModels<SearchFragmentViewModel>()
 
-    private val searchFragmentAdapter = SearchFragmentAdapter()
+    private lateinit var searchFragmentAdapter: SearchFragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +40,7 @@ internal class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentSearchToolbarLayout.setStartIconOnClickListener { findNavController().popBackStack() }
+        searchFragmentAdapter = SearchFragmentAdapter(findNavController())
         binding.fragmentSearchRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = searchFragmentAdapter
