@@ -22,6 +22,21 @@
         <action
             android:id="@+id/action_mainFragment_to_stationFragment"
             app:destination="@id/stationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.peteralexbizjak.ljbikes.ui.SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <argument
+            android:name="stations"
+            app:argType="com.peteralexbizjak.ljbikes.api.models.stations.StationModel[]" />
+        <action
+            android:id="@+id/action_searchFragment_to_stationFragmentSecond"
+            app:destination="@id/stationFragment"
+            app:launchSingleTop="false" />
     </fragment>
     <fragment
         android:id="@+id/stationFragment"

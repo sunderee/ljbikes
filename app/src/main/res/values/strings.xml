@@ -5,4 +5,5 @@
     <string name="location_pin_image">Location pin image</string>
     <string name="shield_icon_description">Shield icon with stand number inside</string>
     <string name="ratings">ratings</string>
+    <string name="search_for_stations">Search for stations</string>
 </resources>

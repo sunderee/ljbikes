@@ -39,6 +39,6 @@ internal class StationRenderer(
     }
 
     override fun shouldRenderAsCluster(cluster: Cluster<StationModel>): Boolean {
-        return cluster.size >= 1 && currentZoom < 14.5
+        return cluster.size >= 1 && currentZoom < 13.5
     }
 }

@@ -35,7 +35,7 @@ internal class LoadingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadingFragmentViewModel.stationsObserver.observe(viewLifecycleOwner) {
+        loadingFragmentViewModel.stationsObservable.observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponseModel.Success -> {
                     findNavController().navigate(

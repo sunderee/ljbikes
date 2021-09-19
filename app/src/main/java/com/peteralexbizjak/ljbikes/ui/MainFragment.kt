@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,6 +20,7 @@ import com.peteralexbizjak.ljbikes.api.models.stations.StationModel
 import com.peteralexbizjak.ljbikes.databinding.FragmentMainBinding
 import com.peteralexbizjak.ljbikes.ui.maps.StationRenderer
 import com.peteralexbizjak.ljbikes.ui.maps.StationRendererViewModel
+import com.peteralexbizjak.ljbikes.utils.constants.SharedElementConstants
 
 internal class MainFragment : Fragment() {
     private var bindingInstance: FragmentMainBinding? = null
@@ -51,6 +53,16 @@ internal class MainFragment : Fragment() {
             it.setOnCameraMoveListener { stationRendererViewModel.setNewZoomLevel(it.cameraPosition.zoom) }
         }
 
+        binding.fragmentMainToolbarInput.setOnClickListener {
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToSearchFragment(navArguments.stations),
+                FragmentNavigatorExtras(
+                    binding.fragmentMainToolbar to SharedElementConstants.TOOLBAR,
+                    binding.fragmentMainToolbarLayout to SharedElementConstants.TOOLBAR_LAYOUT,
+                    binding.fragmentMainToolbarInput to SharedElementConstants.TOOLBAR_INPUT
+                )
+            )
+        }
     }
 
     override fun onDestroyView() {
@@ -65,7 +77,7 @@ internal class MainFragment : Fragment() {
             CameraUpdateFactory.newCameraPosition(
                 CameraPosition.fromLatLngZoom(
                     LatLng(46.0569, 14.5058),
-                    7.5F
+                    10F
                 )
             )
         )

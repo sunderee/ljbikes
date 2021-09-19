@@ -13,19 +13,19 @@ import kotlinx.coroutines.launch
 internal class StationFragmentViewModel(
     private val repository: IBikesRepository
 ) : ViewModel() {
-    val bikesObserver by lazy { MutableLiveData<ApiResponseModel<List<BikeModel>>>() }
+    val bikesObservable by lazy { MutableLiveData<ApiResponseModel<List<BikeModel>>>() }
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
-        bikesObserver.postValue(ApiResponseModel.Failure(throwable))
+        bikesObservable.postValue(ApiResponseModel.Failure(throwable))
     }
 
     fun findBikesInformation(stationID: Int) {
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-            bikesObserver.postValue(ApiResponseModel.Loading)
+            bikesObservable.postValue(ApiResponseModel.Loading)
             val bikesData = repository.requestBikesForStation(stationID)
             if (bikesData.isNotEmpty()) {
-                bikesObserver.postValue(ApiResponseModel.Success(bikesData))
+                bikesObservable.postValue(ApiResponseModel.Success(bikesData))
             }
         }
     }
