@@ -1,7 +1,6 @@
 package com.peteralexbizjak.ljbikes.ui.maps
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
