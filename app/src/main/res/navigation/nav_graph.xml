@@ -49,5 +49,9 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.peteralexbizjak.ljbikes.ui.SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <argument
+            android:name="stations"
+            app:argType="com.peteralexbizjak.ljbikes.api.models.stations.StationModel[]" />
+    </fragment>
 </navigation>

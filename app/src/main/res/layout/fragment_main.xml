@@ -34,7 +34,6 @@
                 android:id="@+id/fragmentMainToolbarInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:hint="@string/search_for_stations"
                 android:transitionName="toolbar_input" />
 

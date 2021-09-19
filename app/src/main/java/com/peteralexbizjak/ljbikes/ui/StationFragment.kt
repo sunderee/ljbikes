@@ -48,7 +48,7 @@ internal class StationFragment : Fragment() {
                 (navArguments.totalBikeStands - navArguments.availableBikes).toString()
         }
 
-        stationFragmentViewModel.bikesObserver.observe(viewLifecycleOwner) {
+        stationFragmentViewModel.bikesObservable.observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponseModel.Success -> {
                     showRecyclerView()

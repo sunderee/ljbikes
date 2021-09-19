@@ -15,21 +15,21 @@ internal class LoadingFragmentViewModel(
     private val tokenRepository: ITokenRepository,
     private val stationsRepository: IStationsRepository
 ) : ViewModel() {
-    val stationsObserver by lazy { MutableLiveData<ApiResponseModel<List<StationModel>>>() }
+    val stationsObservable by lazy { MutableLiveData<ApiResponseModel<List<StationModel>>>() }
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
-        stationsObserver.postValue(ApiResponseModel.Failure(throwable))
+        stationsObservable.postValue(ApiResponseModel.Failure(throwable))
     }
 
     fun launchInitialConfiguration() {
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-            stationsObserver.postValue(ApiResponseModel.Loading)
+            stationsObservable.postValue(ApiResponseModel.Loading)
             tokenRepository.persistClientTokens()
 
             val stationsData = stationsRepository.getStationsInfo()
             if (stationsData.isNotEmpty()) {
-                stationsObserver.postValue(ApiResponseModel.Success(stationsData))
+                stationsObservable.postValue(ApiResponseModel.Success(stationsData))
             }
         }
     }

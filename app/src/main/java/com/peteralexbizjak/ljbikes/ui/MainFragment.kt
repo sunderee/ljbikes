@@ -55,9 +55,7 @@ internal class MainFragment : Fragment() {
 
         binding.fragmentMainToolbarInput.setOnClickListener {
             findNavController().navigate(
-                R.id.searchFragment,
-                null,
-                null,
+                MainFragmentDirections.actionMainFragmentToSearchFragment(navArguments.stations),
                 FragmentNavigatorExtras(
                     binding.fragmentMainToolbar to SharedElementConstants.TOOLBAR,
                     binding.fragmentMainToolbarLayout to SharedElementConstants.TOOLBAR_LAYOUT,
