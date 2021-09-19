@@ -14,7 +14,8 @@ internal class SearchFragmentViewModel : ViewModel() {
 
     fun applyFilter(filter: String) {
         stationsObservable.value = stationsListInstance.filter {
-            it.stationName.contains(filter) || it.stationAddress.contains(filter)
+            it.stationName.lowercase().contains(filter.lowercase()) ||
+                    it.stationAddress.lowercase().contains(filter.lowercase())
         }
     }
 }
